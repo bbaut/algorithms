@@ -21,31 +21,36 @@ class Stack {
 }
 
 function checkBalancedParenthesis (expression) {
-    const myStack = new Stack();
+    
     const arrayExpression = expression.split("");
+    const myStack = new Stack();
+    let counter = 0;
+    let counterClosed = 0; 
 
     for(let i = 0; i < arrayExpression.length; i++) {
-        if(arrayExpression[i] === '{' || arrayExpression[i] === '[' || arrayExpression[i] === '('){
+        if(arrayExpression[i] === '(' && counterClosed === 0){
             myStack.push(arrayExpression[i]);
+        }
+        else if (arrayExpression[i] === '(' && counterClosed > 0){
+            return counterClosed;
         }
         else {
             if(myStack.peek()){
-                if(myStack.peek() !== '{' && arrayExpression[i] === '}' 
-                    || myStack.peek() !== '[' && arrayExpression[i] === ']'
-                    || myStack.peek() !== '(' && arrayExpression[i] === ')' 
-                )
-                {
-                    return false;
-                }
+                myStack.pop();
             }
             else {
-                return false;
+                counterClosed++;
             }
-            myStack.pop();
         }
     }
-    return true;
+
+    if(myStack.peek() !== undefined){
+        return myStack.array.length;
+    }
+    else {
+        return true;
+    }
 }
 
-let parenthesisExp = "{()[]}";
+let parenthesisExp = "(())))())";
 console.log(checkBalancedParenthesis(parenthesisExp));
