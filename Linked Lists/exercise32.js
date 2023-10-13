@@ -1,11 +1,10 @@
 // Find the node at the beginning of a loop in a singly linked list 
 
-// Find the node at the beginning of a loop in a singly linked list 
-
 class Node {
     constructor(value, nextNode = null) {
         this.value = value;
         this.next = nextNode;
+        this.flag = 0;
     }
 }
 
@@ -13,7 +12,8 @@ class LinkedList {
     constructor(value) {
         this.head = {
             value: value,
-            next: null
+            next: null,
+            flag: 0
         }
         this.tail = this.head;
         this.length = 1;
@@ -27,16 +27,6 @@ class LinkedList {
         return this;
     }
 
-    traverseToIndex(index) {
-        let counter = 0;
-        let currentNode = this.head;
-        while(counter !== index) {
-            currentNode = currentNode.next;
-            counter++;
-        }
-        return currentNode;
-    }
-
     loopOnIndex(index){
         let currentNode = this.head;
         let count = 1;
@@ -48,18 +38,14 @@ class LinkedList {
 
         let jointPoint = currentNode;
 
-        console.log(jointPoint)
-
         while(currentNode.next != null){
             currentNode = currentNode.next
         }
 
         currentNode.next = jointPoint;
-        return this.head
+        return this.head;
     }
 }
-
-
 
 const myLinkedList = new LinkedList(10);
 
@@ -67,7 +53,17 @@ myLinkedList.append(5);
 myLinkedList.append(16);
 myLinkedList.append(57);
 myLinkedList.append(1);
+myLinkedList.loopOnIndex(3);
 
-console.log (myLinkedList)
+function findNode (head) {
+    while (head != null) {
+        if(head.flag === 1){
+            return true;
+        }
+        head.flag = 1;
+        head = head.next;
+    }
+    return false;
+}
 
-console.log(myLinkedList.loopOnIndex(3))
+console.log(findNode(myLinkedList.head));
