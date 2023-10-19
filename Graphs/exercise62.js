@@ -1,3 +1,5 @@
+//Topological sort
+
 class Graph {
     constructor(){
         this.numberOfNodes = 0;
@@ -11,20 +13,42 @@ class Graph {
 
     addEdge(node1,node2){
         this.adjacentList[node1].push(node2);
-        // this.adjacentList[node2].push(node1);
     }
 
-    showConnections() {
-        const allNodes = Object.keys(this.adjacentList);
-        for(let node of allNodes) {
-            let nodeConnections = this.adjacentList[node];
-            let connections = "";
-            let vertex;
-            for (vertex of nodeConnections) {
-                connections += vertex + " ";
-            }
-            console.log(node + "-->" + connections)
+    topologicalSort(){
+        let stack = [];
+        let visited = [];
+        let listOfNodesSorted = [];
+
+        for(let i = 0; i < this.numberOfNodes; i++){
+            visited[i] = false;
         }
+
+        for(let i = 0; i < this.numberOfNodes; i++){
+            console.log(i)
+            if(visited[i] === false) {
+                this.topologicalSortHelper(i, visited, stack)
+            }
+        }
+    
+        while (stack.length != 0){
+            let node = stack.pop()
+            listOfNodesSorted.push(node)
+        }
+        return listOfNodesSorted;
+    }
+
+    topologicalSortHelper(i, visited, stack){
+        visited[i] = true;
+
+        let j = 0;
+
+        for(j=0; j < this.adjacentList[i].length; j++) {
+            if(!visited[Number(this.adjacentList[i][j])]){
+                this.topologicalSortHelper(Number(this.adjacentList[i][j]), visited, stack);
+            }
+        }
+        stack.push(i);
     }
 }
 
@@ -43,5 +67,4 @@ myGraph.addEdge('4', '1');
 myGraph.addEdge('5', '2');
 myGraph.addEdge('5', '0');
 
-myGraph.showConnections();
-console.log(myGraph)
+console.log(myGraph.topologicalSort())
