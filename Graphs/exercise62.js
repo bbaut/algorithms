@@ -25,7 +25,6 @@ class Graph {
         }
 
         for(let i = 0; i < this.numberOfNodes; i++){
-            console.log(i)
             if(visited[i] === false) {
                 this.topologicalSortHelper(i, visited, stack)
             }
