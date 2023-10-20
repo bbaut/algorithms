@@ -1,6 +1,5 @@
 // Find the inner-most cycles in a graph
 
-
 class Graph {
     constructor(){
         this.numberOfNodes = 0;
