@@ -41,7 +41,7 @@ class BinarySearchTree {
         }
     }
 
-    remove(value) {
+    delete(value) {
         if(!this.root){
             return false
         }
@@ -125,6 +125,6 @@ tree.insert(170);
 tree.insert(15);
 tree.insert(1);
 
-tree.remove(20)
+tree.delete(20)
 
 console.log(tree.root);

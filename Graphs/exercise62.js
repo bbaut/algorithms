@@ -67,4 +67,4 @@ myGraph.addEdge('4', '1');
 myGraph.addEdge('5', '2');
 myGraph.addEdge('5', '0');
 
-console.log(myGraph.topologicalSort())
+console.log(myGraph.topologicalSort());

@@ -1,54 +1,54 @@
 //Implement searching in an AVL tree
 
-class Node {
-    constructor(item){
-        this.value = item;
-        this.left = null;
-        this.right = null;
+let AVLObject = {
+    "value":4,
+    "height":3,
+    "left": {
+        "value":2,
+        "height":2,
+        "left": {
+            "value":1,
+            "height":1,
+            "left":null,
+            "right":null
+        },
+    "right": {
+        "value":3,
+        "height":1,
+        "left":null,
+        "right":null
+        }
+    },
+    "right": {
+        "value":5,
+        "height":2,
+        "left":null,
+        "right": {
+            "value":9,
+            "height":1,
+            "left":null,
+            "right":null
+        }
+    }
+} 
+
+
+function searchInAVL(node, number) {
+    if (node == null){
+        return false;
+    }
+    else if (node.value === number){
+        return true;
+    }
+    else if (node.value >= number) {
+        let value = searchInAVL(node.left, number);
+        return value;
+    }
+    else {
+        let value = searchInAVL(node.right, number);
+        return value;
     }
 }
 
-class AVLTree {
-    constructor(){
-        this.root = null;
-    }
-
-    getBalanceFactor(node) {
-        return this.getHeight(node.left) - this.getHeight(node.right);
-    }
-
-    getHeight(node) {
-        let height = 0;
-        if(node == null){
-            height -1;
-        }
-        else {
-            height = Math.max(this.getHeight(node.left), this.getHeight(node.right)) + 1;
-        }
-        return height;
-    }
-
-    insert(value) {
-        let newNode = new Node(value);
-        if(this.root === null) {
-            this.root = newNode;
-        }
-        else {
-            inserHelper(this.root, newNode)
-        }
-    }
-
-    inserHelper(root, node) {
-        if(root === null) {
-            root = node;
-        }
-        else if (node.value < root.value){
-            root.left = inserHelper(this.root, node);
-            if(root.left !== null && this.getBalanceFactor(root) > 1) {
-                if (node.value > root.left.value) {
-                    root = 
-                }
-            }
-        }
-    }
-}
+let number = 1 ;
+console.log(searchInAVL(AVLstring, number));
