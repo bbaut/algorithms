@@ -68,4 +68,6 @@ myLinkedList.push(16, 0);
 myLinkedList.push(34, 4);
 myLinkedList.push(65, 2);
 
-console.log(myLinkedList.printList());
+let myPriorityQueue = myLinkedList.printList();
+
+console.log(myPriorityQueue);

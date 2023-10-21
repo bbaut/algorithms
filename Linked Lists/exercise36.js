@@ -48,4 +48,6 @@ myLinkedList.append(16);
 myLinkedList.append(34);
 myLinkedList.append(65);
 
-console.log(mergeSortLL(myLinkedList))
+let reversedLinkedList = mergeSortLL(myLinkedList)
+
+console.log(reversedLinkedList);
