@@ -1,35 +1,22 @@
 // Find the "2nd" largest number in a stream
 
-function randomNumbers() {
-    function _stream(top = 1000, bottom = 1) {
-        return {
-            value: Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom,
-            next() {
-            return _stream(top = 1000, bottom = 1);
-            }
-        };
-    }
-   
-    return () => _stream(top = 1000, bottom = 1);
-}
-   
-const randoms = randomNumbers();
-  
-function take(n, str) {
-    function _take(n, str, accum) {
-        if (n === 0) {
-            return accum;
-        }
-    
-        const { value, next } = str();
-    
-        return _take(n - 1, next, accum.concat(value));
-    }
-   
-    return _take(n, str, []);
-}
+const delay = (ms = 1000) => new Promise(r => setTimeout(r, ms));
 
-const oneHundredRandom = take(100, randoms);
+const getDataSeries = async () => {
+    let numbers = [];
+    let num = 0;
+    let maxTimes = 6;
+    for (let i = 0; i < maxTimes; i++) {
+        await delay();
+        const res = await fetch(`https://dummyjson.com/products/${i+1}`);
+        const product = await res.json();
+        numbers.push(product.price);
+        num = largestNum(numbers, 2);
+        if(i === maxTimes-1){
+            console.log(num);
+        }
+    }
+};
 
 function largestNum(array, kthNumber) {
     if(kthNumber < 1 || kthNumber > array.length) {
@@ -52,4 +39,4 @@ function bubbleSort (array) {
     return array;
 }
 
-console.log(largestNum(oneHundredRandom, 2));
+getDataSeries();
